@@ -1,384 +1,527 @@
-🛡️ AllergySafe Guardian
+# 🛡️ AllergySafe Guardian
 
-Real-Time AI Menu Analyzer & Severe Food Allergy Dining Companion
+> **Real-Time AI Menu Analyzer & Severe Food Allergy Dining Companion**
 
-Key Innovations • System Architecture • Data Flow Lifecycle • Run Locally • API Contract • Firebase Console Setup • Docker & Cloud Deployment
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Node.js-22-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Gemini-2.5-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini" />
+  <img src="https://img.shields.io/badge/Firebase-Auth-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase" />
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+</p>
 
-🌟 Key Innovations
+<p align="center">
+  <strong>🍽️ Eat with Confidence • 🌍 Travel Safely • 🤖 AI-Powered Protection</strong>
+</p>
 
-📸 Tri-Input Scanner with Live WebRTC Processing
+---
 
-Diners can ingest restaurant menus using three distinct approaches, designed for varying network conditions and environmental constraints:
+## 📋 Table of Contents
 
-Interactive Text Clipboard: Direct raw copy/paste for digital menus.
+- [🌟 Overview](#-overview)
+- [✨ Key Innovations](#-key-innovations)
+- [🏗️ Architecture](#️-architecture)
+- [🔄 Data Flow](#-data-flow)
+- [🚀 Quick Start](#-quick-start)
+- [🌐 API Reference](#-api-reference)
+- [⚙️ Firebase Setup](#️-firebase-setup)
+- [📦 Deployment](#-deployment)
+- [⚠️ Medical Disclaimer](#️-medical-disclaimer)
+- [📄 License](#-license)
 
-File System Asset Upload: High-resolution file capture supporting JPEG, PNG, and WebP.
+---
 
-Hardware WebRTC Integration: Stream-to-canvas snapshot capture utilizing native device camera permissions without blocking global state or interface animations.
+## 🌟 Overview
 
-🧠 GenAI Allergen Reasoning Engine
+**AllergySafe Guardian** is a cutting-edge dining companion that leverages Google's Gemini AI to analyze restaurant menus in real-time, identifying potential allergen risks for users with severe food allergies.
 
-The heart of AllergySafe Guardian is a custom model pipeline orchestrated through Google's @google/genai SDK, targeting Gemini 2.5 Flash and Gemini 2.5 Pro:
+### 🎯 What It Does
 
-Inferred Ingredient Detection: Looks beyond simple text matching to infer hidden ingredients. For example, it automatically flags Pesto for tree nuts/dairy, Béchamel for dairy/gluten, Soy Sauce for wheat/gluten, and Aioli for egg.
+| Feature | Benefit |
+|---------|---------|
+| 🔍 **Tri-Input Scanner** | Capture menus via text paste, image upload, or live camera |
+| 🧠 **AI Reasoning** | Detect hidden ingredients & cross-contamination risks |
+| 🎚️ **Vigilance Modes** | Choose safety strictness: Extreme, Standard, or Flexible |
+| 🌐 **Multi-Language** | Translate results to communicate with kitchen staff worldwide |
+| 🖨️ **Chef Warning Card** | Generate printable, high-contrast allergy alerts |
+| ☁️ **Hybrid Sync** | Offline-first with automatic cloud backup via Firebase |
 
-Vigilance Thresholding: Dynamically swaps prompt context instructions depending on the user's safety tolerance:
+---
 
-Extreme Vigilance: If there is any reasonable doubt, lack of manufacturing clarity, hidden base, or risk of shared frying equipment, the dish is flagged as POSSIBLE_RISK or HIGH_RISK.
+## ✨ Key Innovations
 
-Standard: Balanced evaluation of probable direct ingredients and common cross-contamination parameters.
+### 📸 Tri-Input Scanner
 
-Flexible: Flags dishes only when there is a high statistical probability of allergen presence.
+Capture menus your way:
 
-Confidence Calibration: Post-processes Gemini's evaluations. If a dish is returned with a safety classification of SAFE but carries a model confidence score of $\text{confidence} < 70\%$, the backend automatically overrides the result to POSSIBLE_RISK and appends a notice highlighting the low confidence margin.
+- **📋 Clipboard**: Paste text from digital menus
+- **📁 File Upload**: Upload JPEG, PNG, or WebP images
+- **🎥 Live Camera**: Snap photos using device camera via WebRTC
 
-Native Translation Engine: When traveling internationally, the system enforces a strict translation mandate, translating dish names, ingredients, risk flags, and explanations into target scripts (e.g., Spanish, Japanese) to enable fluent communication with overseas kitchen staff.
+### 🧠 GenAI Allergen Reasoning
 
-🧑‍🍳 Printable Chef Warning Card
+Powered by Google Gemini 2.5 (Flash & Pro):
 
-Generates a targeted, high-contrast, severe allergy safety card. Includes:
+| Menu Item | Inferred Allergens | Why |
+|-----------|-------------------|-----|
+| 🥗 Pesto | Tree nuts, Dairy | Contains pine nuts, parmesan |
+| 🍝 Béchamel | Dairy, Gluten | Made with butter, flour, milk |
+| 🥢 Soy Sauce | Wheat, Soy | Traditional fermentation |
+| 🧄 Aioli | Egg, Garlic | Egg yolk emulsion base |
 
-Big bold warnings emphasizing the life-threatening nature of the allergies.
+### 🎚️ Vigilance Thresholds
 
-Highlighted target ingredient lists dynamically rendered from active user profiles.
+Customize safety sensitivity:
 
-Auto-generated "Ask the Chef" specific queries for each analyzed dish.
+- **🔴 Extreme**: Flag anything with reasonable doubt
+- **🟡 Standard**: Balanced risk assessment (default)
+- **🟢 Flexible**: Only flag high-probability risks
 
-Optimized @media print CSS rules that automatically hide sidebars, navigations, footers, and dashboard panels, isolating only the physical paper card layout for a perfect receipt-sized printout.
+### 📊 Confidence Calibration
 
-☁️ Hybrid Persistence Architecture
+Safety-first post-processing: If AI returns "SAFE" but confidence < 70%, result auto-upgrades to **POSSIBLE_RISK** with a verification notice.
 
-Provides frictionless access across different user authentication scopes:
+### 🌍 Native Translation
 
-Guest Mode: Tracks, caches, and saves active profile allergy criteria, settings, and historical scans to hardware localStorage.
+Output results in 50+ languages to communicate clearly with international kitchen staff.
 
-Cloud Account: Logs in with a single click using Firebase Google OAuth. Upon login, local allergy metrics sync up with Google Cloud Firestore. From that point on, real-time snapshot listeners maintain synchronization across all active devices.
+### 🖨️ Chef Warning Card
 
-🏗️ System Architecture
+Print-ready, high-contrast allergy alert card featuring:
+- Bold life-threatening allergy warnings
+- Dynamic ingredient lists from user profile
+- Auto-generated "Ask the Chef" questions
+- Print-optimized CSS that hides all non-essential UI
 
-AllergySafe Guardian is built as a modular hybrid monolith, optimizing performance by rendering an SPA on the client-side while protecting API secrets and serving heavy data processing pipelines from a secure Node/Express backend.
+---
 
+## 🏗️ Architecture
+
+### System Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph Client["📱 Frontend - React SPA"]
+        A[User Interface]
+        B[Profile Screen]
+        C[Scan Screen]
+        D[History Screen]
+        E[Chef Card]
+    end
+    
+    subgraph Backend["🖥️ Backend - Node/Express"]
+        F[API Gateway]
+        G[Auth Middleware]
+        H[Gemini Router]
+        I[Validation Layer]
+    end
+    
+    subgraph Services["☁️ External Services"]
+        J[Gemini AI API]
+        K[Firebase Auth]
+        L[Firestore DB]
+    end
+    
+    A --> B & C & D & E
+    C --> F
+    F --> G --> H --> I
+    I --> J
+    G --> K
+    H --> L
+    
+    style Client fill:#e1f5ff
+    style Backend fill:#fff4e1
+    style Services fill:#f0e1ff
+```
+
+### Component Hierarchy
+
+```mermaid
+graph TD
+    App[App.tsx - Root Router]
+    
+    App --> Layout[Layout Components]
+    App --> Screens[Screen Components]
+    
+    Layout --> Header[Header.tsx]
+    Layout --> Nav[BottomNavigation.tsx]
+    
+    Screens --> Profile[ProfileScreen.tsx]
+    Screens --> Scan[ScanScreen.tsx]
+    Screens --> History[HistoryScreen.tsx]
+    Screens --> Settings[SettingsScreen.tsx]
+    Screens --> ChefCard[ChefCardScreen.tsx]
+    
+    Scan --> Camera[useCamera Hook]
+    Scan --> Analyzer[Analysis Engine]
+    
+    Profile --> Allergies[useAllergies Hook]
+    History --> Storage[useScanHistory Hook]
+    
+    style App fill:#4a90d9,color:#fff
+    style Layout fill:#7cb3e2,color:#fff
+    style Screens fill:#7cb3e2,color:#fff
+```
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 + TypeScript + Vite + Tailwind CSS |
+| Backend | Node.js + Express + TSX |
+| AI | Google Gemini 2.5 (Flash/Pro) |
+| Auth | Firebase Authentication (Google OAuth) |
+| Database | Cloud Firestore |
+| Deployment | Docker + Multi-stage builds |
+
+### Project Structure
+
+```
 allergy-safe-menu-scanner/
 ├── src/
-│   ├── components/
-│   │   ├── layout/            # Persistent UI Shell Components
-│   │   │   ├── Header.tsx             # Responsive header, auth gates & light/dark modes
-│   │   │   └── BottomNavigation.tsx   # Floating navigation bar with Framer Motion layouts
-│   │   └── screens/           # Modular Sub-Screen Presentational Panels
-│   │       ├── ProfileScreen.tsx      # Core allergies configuration & dietary preferences
-│   │       ├── ScanScreen.tsx         # Dashboard displaying inputs, camera stream & analysis
-│   │       ├── HistoryScreen.tsx      # Interactive search, review, & deletion of previous scans
-│   │       ├── SettingsScreen.tsx     # Custom settings, export limits & clean resets
-│   │       └── ChefCardScreen.tsx     # Printable card preview layout
-│   ├── hooks/                 # Custom React Hooks isolating side-effects & state rules
-│   │   ├── useAuth.ts                 # Firebase Authentication session listener
-│   │   ├── useAllergies.ts            # LocalStorage/Firestore atomic sync for profiles
-│   │   ├── useCamera.ts               # WebRTC media track and stream buffer capture controls
-│   │   └── useScanHistory.ts          # History sync, delete operations & offline cache
-│   ├── lib/                   # Utility configuration files
-│   │   └── utils.ts                   # Tailwind Merge / Clsx visual utilities
-│   ├── types.ts               # Strict TS definitions and static allergen presets
-│   ├── utils.tsx              # Prompt utilities & dynamic "Ask the Chef" algorithms
-│   ├── firebase.ts            # Client-side Firebase SDK configuration
-│   ├── main.tsx               # Frontend startup mount point
-│   └── App.tsx                # Master state router and context controller
-├── server.ts                  # Hybrid Node.js/Express.js backend and Gemini Pipeline router
-├── firestore.rules            # Security-hardened Firebase security rules
-├── Dockerfile                 # Multi-stage optimized production container build script
-├── package.json               # Package manifests, task dependencies & scripts
-└── tsconfig.json              # TypeScript engine configurations
+│   ├── components/     # UI components (layout + screens)
+│   ├── hooks/          # Custom React hooks
+│   ├── lib/            # Utilities & config
+│   ├── firebase.ts     # Firebase client setup
+│   ├── main.tsx        # App entry point
+│   └── App.tsx         # Root router & context
+├── server.ts           # Express API + Gemini router
+├── firestore.rules     # Security rules
+├── Dockerfile          # Production container
+├── package.json        # Dependencies & scripts
+└── tsconfig.json       # TypeScript config
+```
 
+---
 
-🔄 Data Flow Lifecycle
+## 🔄 Data Flow
 
-The diagram below details the end-to-end lifecycle of a menu safety analysis scan:
+### End-to-End Analysis Flow
 
-[ Diner Interface (React) ]
-         │
-         ├── 1. Captures Menu Source (Text/Base64 Image)
-         ├── 2. Grabs Active Allergy/Diet Profile
-         └── 3. Packages Settings (Strictness, Language, Model Choice)
-         │
-         ▼
-[ POST /api/analyze-menu ]  ──► (Backend Express Server)
-         │
-         ├── 4. Sanitizes input & verifies system variables
-         ├── 5. Compiles Dynamic Context-Aware Prompt (Appends Diet, Strictness & Language)
-         │
-         ▼
-[ Google Gemini GenAI API ] ──► (Generates Structured JSON Array)
-         │
-         ├── 6. Infers hidden ingredients (e.g., Pesto -> Dairy/Pine nuts)
-         └── 7. Formulates safety scores & "Ask the Chef" guidelines
-         │
-         ▼
-[ Safety Calibration Step ] ──► (Backend Post-Processing)
-         │
-         └── 8. Overrides "SAFE" with < 70% confidence to "POSSIBLE_RISK"
-         │
-         ▼
-[ Sync & Persistence Layer ]
-         │
-         ├── Cloud User: Writes record to Firestore collection (/users/{uid}/scans)
-         └── Guest User: Cache pushes to Client LocalStorage
-         │
-         ▼
-[ Render Results UI ] ──► Dynamically colors badges, displays warnings, generates Chef Card
+```mermaid
+sequenceDiagram
+    participant User as 👤 User
+    participant UI as 🎨 React UI
+    participant API as 🔌 Express API
+    participant AI as 🤖 Gemini AI
+    participant DB as 💾 Firestore
+    
+    User->>UI: 1. Capture Menu<br/>(text/image/camera)
+    UI->>UI: 2. Get Allergy Profile
+    UI->>API: 3. POST /api/analyze-menu<br/>{allergies, menu, settings}
+    
+    API->>API: 4. Validate & Sanitize
+    API->>AI: 5. Generate Content<br/>(context-aware prompt)
+    
+    AI-->>API: 6. Return Analysis<br/>{ingredients, allergens, risk}
+    
+    API->>API: 7. Apply Confidence<br/>Calibration
+    
+    alt Cloud User
+        API->>DB: 8. Save to /users/{uid}/scans
+    else Guest User
+        API->>UI: 8. Cache in localStorage
+    end
+    
+    API-->>UI: 9. Return Results
+    
+    UI->>UI: 10. Render Badges<br/>+ Generate Chef Card
+    UI-->>User: 11. Display Analysis
+```
 
+### Data Persistence Flow
 
-🚀 Run Locally
+```mermaid
+graph LR
+    A[App Launch] --> B{Authenticated?}
+    
+    B -->|No| C[Guest Mode]
+    B -->|Yes| D[Cloud Mode]
+    
+    C --> E[localStorage]
+    D --> F[Firestore]
+    
+    E --> G{User Logs In?}
+    G -->|Yes| H[Sync to Firestore]
+    G -->|No| I[Continue Offline]
+    
+    F --> J[Real-time Sync]
+    J --> K[Multi-Device Update]
+    
+    H --> K
+    
+    style C fill:#fff4e1
+    style D fill:#e1f5ff
+    style E fill:#ffe0b2
+    style F fill:#bbdefb
+```
 
-Prerequisites
+### User Journey Flow
 
-Node.js (v22+ recommended)
+```mermaid
+stateDiagram-v2
+    [*] --> Landing
+    Landing --> GuestMode: Continue as Guest
+    Landing --> SignIn: Sign In with Google
+    
+    GuestMode --> ScanMenu: Capture Menu
+    SignIn --> ScanMenu
+    
+    ScanMenu --> Analyzing: Processing...
+    Analyzing --> Results: Analysis Complete
+    
+    Results --> ViewDetails: View Dish Details
+    Results --> GenerateCard: Create Chef Card
+    Results --> SaveHistory: Save to History
+    
+    ViewDetails --> Results
+    GenerateCard --> PrintCard: Print Warning Card
+    PrintCard --> Results
+    
+    SaveHistory --> [*]
+    
+    note right of Analyzing
+        AI checks:
+        - Hidden ingredients
+        - Cross-contamination
+        - Confidence scoring
+    end note
+    
+    note left of GenerateCard
+        High-contrast
+        Print-optimized
+        Auto questions
+    end note
+```
 
-Google Gemini API Key (Obtained from Google AI Studio)
+---
 
-Firebase Project Console Account
+## 🚀 Quick Start
 
-Step 1: Clone the Codebase
+### ✅ Prerequisites
 
-git clone [https://github.com/mohd-ali10/allergy-safe-menu-scanner.git](https://github.com/mohd-ali10/allergy-safe-menu-scanner.git)
+- Node.js v22+ 
+- Google Gemini API Key ([Get one here](https://aistudio.google.com/))
+- Firebase Project ([Console](https://console.firebase.google.com/))
+
+### 📥 1. Clone & Install
+
+```bash
+git clone https://github.com/mohd-ali10/allergy-safe-menu-scanner.git
 cd allergy-safe-menu-scanner
-
-
-Step 2: Install System Dependencies
-
-Install both backend compilation dependencies and frontend package modules in one go:
-
 npm install
+```
 
+### ⚙️ 2. Configure Environment
 
-Step 3: Configure Environment Variables
+Create `.env.local` in project root:
 
-Create a .env.local file inside the root project directory:
-
-# Backend Port and Gemini SDK Credentials
+```env
 PORT=3000
 GEMINI_API_KEY=your_gemini_api_key_here
+```
 
+### 🔥 3. Firebase Config
 
-Step 4: Setup client-side Firebase Configuration
+Create `firebase-applet-config.json` in root:
 
-Create a file named firebase-applet-config.json inside the root directory (allergy-safe-menu-scanner/). Place your active Firebase Web SDK config parameters inside it:
-
+```json
 {
   "projectId": "YOUR_PROJECT_ID",
   "appId": "YOUR_APP_ID",
   "apiKey": "YOUR_API_KEY",
-  "authDomain": "YOUR_AUTH_DOMAIN",
-  "firestoreDatabaseId": "YOUR_DATABASE_ID",
-  "storageBucket": "YOUR_STORAGE_BUCKET",
+  "authDomain": "YOUR_PROJECT_ID.firebaseapp.com",
+  "firestoreDatabaseId": "(default)",
+  "storageBucket": "YOUR_PROJECT_ID.appspot.com",
   "messagingSenderId": "YOUR_SENDER_ID"
 }
+```
 
+### ▶️ 4. Start Development
 
-(An empty template is available in firebase-applet-config.example.json for reference).
-
-Step 5: Start Local Development
-
-Run the combined TSX Node and Vite compiler pipeline:
-
+```bash
 npm run dev
+```
 
+Visit `http://localhost:3000` to begin.
 
-Navigate to http://localhost:3000 inside your web browser.
+---
 
-🌐 Backend API Contract
+## 🌐 API Reference
 
-All menu processing queries flow securely through the Express API layer to prevent exposing your GEMINI_API_KEY to the client.
+### POST `/api/analyze-menu`
 
-POST /api/analyze-menu
+Analyze menu content against user allergy profile.
 
-Processes raw menu text or base64 visual assets against active allergy safety constraints.
+#### Request Body
 
-Headers: Content-Type: application/json
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `allergies` | string[] | ✅ | Allergens to check: `["dairy", "gluten", "peanuts", ...]` |
+| `menuText` | string | ⚠️ | Plain text menu (required if no image) |
+| `image` | string | ⚠️ | Base64 image (required if no menuText) |
+| `strictness` | string | ❌ | `"flexible"`, `"standard"`, `"extreme"` (default: standard) |
+| `outputLanguage` | string | ❌ | Language for results (default: English) |
+| `modelSelected` | string | ❌ | `"gemini-2.5-flash"` or `"gemini-2.5-pro"` |
 
-JSON Request Body Parameters:
+#### Example Request
 
-Parameter
-
-Type
-
-Required
-
-Description
-
-allergies
-
-Array<string>
-
-Yes
-
-Active allergens list (e.g., ["dairy", "gluten", "peanuts"]).
-
-menuText
-
-string
-
-Conditional
-
-Plain text representing dishes and menus. (Required if image is null).
-
-image
-
-string
-
-Conditional
-
-Base64-encoded image string. (Required if menuText is null).
-
-dietaryPreference
-
-string
-
-No
-
-Dietary restriction filter: vegan, vegetarian, pescatarian, or none.
-
-strictness
-
-string
-
-No
-
-Strictness behavior modifier: flexible, standard, or extreme.
-
-outputLanguage
-
-string
-
-No
-
-Language name for the output (e.g., Spanish, Japanese, English).
-
-modelSelected
-
-string
-
-No
-
-AI Model Choice: gemini-2.5-flash or gemini-2.5-pro.
-
-Example Payload
-
+```json
 {
-  "allergies": ["dairy", "gluten", "peanuts"],
-  "menuText": "Classic Pesto Penne: Fresh basil pasta tossed in creamy pine nut olive oil emulsion and aged parmesan.",
-  "image": null,
-  "dietaryPreference": "none",
+  "allergies": ["dairy", "gluten"],
+  "menuText": "Creamy Mushroom Risotto with parmesan",
   "strictness": "extreme",
-  "outputLanguage": "English",
-  "modelSelected": "gemini-2.5-flash"
+  "outputLanguage": "English"
 }
+```
 
+#### Example Response
 
-Example Response (Success: HTTP Code 200)
-
+```json
 [
   {
-    "dish": "Classic Pesto Penne",
-    "ingredients": ["Penne Pasta", "Basil", "Pine Nuts", "Olive Oil", "Cream", "Parmesan Cheese"],
-    "allergens": ["dairy", "gluten", "tree nuts"],
+    "dish": "Creamy Mushroom Risotto",
+    "ingredients": ["Arborio Rice", "Mushrooms", "Parmesan", "Butter", "Cream"],
+    "allergens": ["dairy", "gluten"],
     "risk": "HIGH_RISK",
-    "explanation": "Dish contains explicit gluten from penne pasta, dairy from cream and parmesan, and pine nuts which pose a severe risk to tree nut allergies.",
-    "confidence": 98
+    "explanation": "Contains dairy from parmesan, butter, and cream. Risotto may use gluten-containing stock.",
+    "confidence": 96,
+    "chefQuestions": [
+      "Is the stock gluten-free?",
+      "Can this be prepared without butter or cream?"
+    ]
   }
 ]
+```
 
+#### Error Responses
 
-⚙️ Firebase Console & Security Setup
+| Code | Meaning |
+|------|---------|
+| `400` | Missing required fields |
+| `401` | Invalid API key or auth token |
+| `413` | Image too large (>10MB) |
+| `429` | Rate limit exceeded |
+| `500` | Internal server error |
 
-Follow these steps to configure your database and authentication settings:
+---
 
-1. Enable Google Sign-In Provider
+## ⚙️ Firebase Setup
 
-Go to the Firebase Console and select your project.
+### 1. Enable Google Sign-In
 
-Navigate to Authentication > Sign-in Method.
+Firebase Console → Authentication → Sign-in method → Enable **Google**
 
-Select Google from the list of provider options, toggle "Enable", and click "Save".
+### 2. Apply Security Rules
 
-2. Configure Cloud Firestore Rules
-
-Ensure that users can only view or delete their own saved scan history by updating your security rules in the console or applying the local firestore.rules configuration file:
-
+```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Lock user profile collections
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      
-      // Protect associated scan indices
       match /scans/{scanId} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, write, delete: if request.auth != null && request.auth.uid == userId;
       }
     }
   }
 }
+```
 
+### 3. Firestore Data Structure
 
-📦 Production Deployment & Containerization
+```
+/users/{userId}
+  ├── /profile
+  │   ├── allergies: string[]
+  │   ├── dietaryPreference: string
+  │   └── strictness: string
+  └── /scans/{scanId}
+      ├── dish: string
+      ├── risk: string
+      ├── timestamp: timestamp
+      └── ingredients: string[]
+```
 
-Standard Deployment (No Docker)
+---
 
-This codebase is ready for zero-config deployments on cloud platforms like Render, Railway, or Heroku:
+## 📦 Deployment
 
-Connect your active GitHub repository to the hosting platform.
+### 🚀 Cloud Platforms (Render / Railway / Heroku)
 
-Select Node/TypeScript as the runtime environment.
+1. Connect GitHub repo
+2. Set build command: `npm install && npm run build`
+3. Set start command: `npm start`
+4. Add env var: `GEMINI_API_KEY`
 
-Configure the following execution commands:
+### 🐳 Docker
 
-Build Command: npm install && npm run build
-
-Start Command: npm start (This launches TSX in production mode, serving pre-compiled React static assets).
-
-Add your Environment Variables: Set GEMINI_API_KEY inside the platform's Environment Variables panel.
-
-Dockerized Container Deployment
-
-A highly optimized, multi-stage production Dockerfile is provided in the root directory. This separates compile-time environments from production runtimes to keep the image slim, fast, and secure.
-
-# ==========================================
-# STAGE 1: Build Frontend Assets & Packages
-# ==========================================
-FROM node:22-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-RUN npm prune --production
-
-# ==========================================
-# STAGE 2: Lightweight Production Runner
-# ==========================================
-FROM node:22-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-
-# Copy only production dependencies and compiled assets
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/server.ts ./
-COPY --from=builder /app/firebase-applet-config.json ./
-
-EXPOSE 3000
-CMD ["npx", "tsx", "server.ts"]
-
-
-Run with Docker locally:
-
-# 1. Build the lightweight production container
+```bash
+# Build
 docker build -t allergy-safe-scanner .
 
-# 2. Start the container on port 3000
-docker run -p 3000:3000 -e GEMINI_API_KEY="your_api_key" allergy-safe-scanner
+# Run
+docker run -p 3000:3000 -e GEMINI_API_KEY="your_key" allergy-safe-scanner
+```
 
+### Deployment Architecture
 
-⚠️ Medical Disclaimer
+```mermaid
+graph TB
+    subgraph Local["🖥️ Development"]
+        A[Local Dev Server]
+        B[Hot Reload]
+    end
+    
+    subgraph Docker["🐳 Docker Production"]
+        C[Multi-stage Build]
+        D[Alpine Node Runtime]
+        E[Optimized Image ~150MB]
+    end
+    
+    subgraph Cloud["☁️ Cloud Platform"]
+        F[Render/Railway]
+        G[Auto SSL]
+        H[Auto Scaling]
+    end
+    
+    A --> B
+    C --> D --> E
+    E --> F --> G --> H
+    
+    style Local fill:#e3f2fd
+    style Docker fill:#fff3e0
+    style Cloud fill:#e8f5e9
+```
 
-AllergySafe Guardian is an AI-powered assistant designed to facilitate menu parsing and ingredient extraction. Artificial intelligence models can make mistakes, and restaurant kitchen recipes or cross-contamination protocols change rapidly. Users must always cross-examine and directly confirm any risk evaluations with the waitstaff and executive kitchen chef before consuming any meals.
+---
+
+## ⚠️ Medical Disclaimer
+
+> **AllergySafe Guardian is an AI assistant, not a medical device.**
+
+- ❗ AI can make mistakes — always verify with restaurant staff
+- ✅ Cross-check results before consuming any food
+- 🔄 Re-scan if menu items or preparation methods change
+- 🆘 Always carry emergency medication (e.g., epinephrine)
+- 🌐 Use translation features to communicate clearly with kitchen teams
+
+**This application does not replace professional medical advice.**
+
+---
+
+## 📄 License
+
+MIT License — See [`LICENSE`](LICENSE) for details.
+
+---
+
+<p align="center">
+  <strong>🛡️ Built for safer dining experiences worldwide</strong><br/>
+  <sub>Made with ❤️ by the AllergySafe Guardian Team</sub>
+</p>
+
+<p align="center">
+  <a href="#-allergysafe-guardian">⬆️ Back to Top</a>
+</p>
