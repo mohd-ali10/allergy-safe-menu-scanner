@@ -1,0 +1,6 @@
+{
+  "name": "Allergy-Safe Menu Scanner",
+  "description": "Production-ready AI-powered menu scanner that detects allergens and assesses safety risks using Gemini AI.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

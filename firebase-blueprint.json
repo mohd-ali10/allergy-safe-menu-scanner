@@ -1,0 +1,34 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Stores user allergy preferences and profile information.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique identifier for the user."
+        },
+        "allergies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of allergies the user has."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The last time the profile was updated."
+        }
+      },
+      "required": ["uid", "allergies"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile document containing allergy list."
+    }
+  }
+}

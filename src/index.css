@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #chef-warning-card, #chef-warning-card * {
+    visibility: visible;
+  }
+  #chef-warning-card {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Base Light Mode Styles & Smooth Theme Transition Override Rules */
+.light {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Page body elements in Light Mode */
+.light, .light main, .light footer {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header Override */
+.light header {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light header h1, .light header span.text-slate-100 {
+  color: #0f172a !important;
+}
+
+.light header span.text-slate-200 {
+  color: #1e293b !important;
+}
+
+.light header span.text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Card Overrides - converts deep dark blue `#151B26` cards into white cards with gentle borders */
+.light .bg-\[\#151B26\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Custom list items and nested background layout `#1d2433` into soft slate background */
+.light .bg-\[\#1d2433\], .light .bg-\[\#1d2433\]\/50 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.light input.bg-\[\#1d2433\], .light textarea.bg-\[\#1d2433\] {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light input.bg-\[\#1d2433\]::placeholder, .light textarea.bg-\[\#1d2433\]::placeholder {
+  color: #64748b !important;
+}
+
+/* Sub-panels or custom layout lists `#121721` to soft warm slate backgrounds */
+.light .bg-\[\#121721\] {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* General Text Color Remapping to preserve beautiful contrast in Light Mode */
+.light .text-slate-100 {
+  color: #0f172a !important;
+}
+
+.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+.light .text-slate-450, .light .text-slate-455 {
+  color: #475569 !important;
+}
+
+.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+.light .text-slate-550 {
+  color: #475569 !important;
+}
+
+/* Specific component remapping inside modal sheets */
+.light .bg-slate-950\/60 {
+  background-color: rgba(15, 23, 42, 0.4) !important;
+}
+
+.light .bg-\[\#1a202c\], .light .bg-\[\#1c2333\], .light .bg-\[\#1C2333\] {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Buttons in light mode styling overrides */
+.light .text-rose-400 {
+  color: #dc2626 !important; /* robust red for rose-400 on white */
+}
+
+.light .border-rose-900\/40 {
+  border-color: #fca5a5 !important;
+}
+
+.light .bg-rose-950\/20 {
+  background-color: #fef2f2 !important;
+}
+
+/* Preset active/inactive allergen states */
+.light .border-slate-800, .light .border-slate-800\/80, .light .border-slate-850 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Footer Section */
+.light footer {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light footer .text-slate-400, .light footer .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Active preset buttons */
+.light .bg-[#1C2333]/90 {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Bottom Tab Bar (Stays pinned beautifully with floating material white) */
+.light .fixed.bottom-6 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08) !important;
+}
+
+.light .fixed.bottom-6 span.text-slate-400 {
+  color: #475569 !important;
+}
+
+.light .fixed.bottom-6 span.text-slate-200 {
+  color: #0f172a !important;
+}
+
+.light .fixed.bottom-6 .text-slate-500 {
+  color: #64748b !important;
+}
+
+.light .text-[#fe9a00] {
+  color: #d97706 !important; /* Darker amber for daylight visibility */
+}
+
+.light .hover\:bg-\[\#232b3d\]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Modals overlays */
+.light .bg-slate-950\/60 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* Attention warning card / preview on right */
+.light .bg-\[\#161D2B\] {
+  background-color: #fff9f9 !important;
+  border-color: #fca5a5 !important;
+}
+
