@@ -175,22 +175,40 @@ graph TD
 | Database | Cloud Firestore |
 | Deployment | Docker + Multi-stage builds |
 
-### Project Structure
+# 📁 Project Structure
+
+AllergySafe Guardian follows a **modular hybrid architecture**, cleanly separating presentation logic, state management, backend routing, and deployment configurations for maintainability, type safety, and scalable development.
 
 ```
 allergy-safe-menu-scanner/
-├── src/
-│   ├── components/     # UI components (layout + screens)
-│   ├── hooks/          # Custom React hooks
-│   ├── lib/            # Utilities & config
-│   ├── firebase.ts     # Firebase client setup
-│   ├── main.tsx        # App entry point
-│   └── App.tsx         # Root router & context
-├── server.ts           # Express API + Gemini router
-├── firestore.rules     # Security rules
-├── Dockerfile          # Production container
-├── package.json        # Dependencies & scripts
-└── tsconfig.json       # TypeScript config
+├── 📂 src/                          # 🖥️ Frontend React Application
+│   ├── 📂 components/               # Reusable UI & Screen Components
+│   │   ├── 📂 layout/               # Persistent shell components
+│   │   │   ├── Header.tsx
+│   │   │   └── BottomNavigation.tsx
+│   │   └── 📂 screens/              # Route-based page components
+│   │       ├── ProfileScreen.tsx
+│   │       ├── ScanScreen.tsx
+│   │       ├── HistoryScreen.tsx
+│   │       ├── SettingsScreen.tsx
+│   │       └── ChefCardScreen.tsx
+│   ├── 📂 hooks/                    # Custom React Hooks (State & Side-Effects)
+│   │   ├── useAuth.ts
+│   │   ├── useAllergies.ts
+│   │   ├── useCamera.ts
+│   │   └── useScanHistory.ts
+│   ├── 📂 lib/                      # Shared Utilities & Helpers
+│   │   └── utils.ts
+│   ├── 📄 types.ts                  # TypeScript Interfaces, Enums & Schemas
+│   ├── 📄 utils.tsx                 # AI Prompt Builders & Logic Helpers
+│   ├── 📄 firebase.ts               # Firebase Client SDK Initialization
+│   ├── 📄 main.tsx                  # React DOM Mount Point
+│   └── 📄 App.tsx                   # Router, Context Providers & Layout Wrapper
+├── 📄 server.ts                     # ⚙️ Backend Express API & Gemini Router
+├── 📄 firestore.rules               # 🔐 Firebase Security & Access Policies
+├── 📄 Dockerfile                    # 🐳 Multi-Stage Production Container Build
+├── 📄 package.json                  # 📦 Dependencies, Scripts & Metadata
+└── 📄 tsconfig.json                 # 🛠️ TypeScript Compiler Configuration
 ```
 
 ---
